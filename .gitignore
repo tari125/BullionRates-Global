@@ -1,0 +1,3 @@
+# Ignore local conversation history from GitHub
+project_history.html
+*.log
