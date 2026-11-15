@@ -1,0 +1,581 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>BullionRates Global - Real-Time Automated Gold, Forex & Investment Intelligence</title>
+  <meta name="description" content="BullionRates Global is your automated financial intelligence hub for real-time gold rates, precious metals, forex currency conversion, ROI calculators, and jewelry fair price estimates.">
+  <meta name="keywords" content="gold price today, bullion rates, live forex, usd to pkr, gold per tola, zakat calculator, jewelry making calculator, gold investment roi">
+  <link rel="icon" type="image/svg+xml" href="logo.svg">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=Montserrat:wght@700;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <!-- ==================== REAL-TIME MARKET TICKER ==================== -->
+  <div class="ticker-wrap">
+    <div class="ticker-status">
+      <span class="ticker-pulse"></span>
+      LIVE MARKET FEED
+    </div>
+    <div class="ticker-content" id="liveTicker">
+      <!-- Injected by app.js -->
+    </div>
+  </div>
+
+  <!-- ==================== HEADER & NAVBAR ==================== -->
+  <header>
+    <div class="navbar">
+      <a href="#" class="brand-logo">
+        <img src="logo.svg" alt="BullionRates Global">
+      </a>
+
+      <ul class="nav-links">
+        <li><a href="#gold-section" class="active">Gold Rates</a></li>
+        <li><a href="#forex-section">Forex Rates</a></li>
+        <li><a href="#roi-section">ROI Calculator</a></li>
+        <li><a href="#jewelry-section">Jewelry Fair Price</a></li>
+        <li><a href="#forex-calc-section">Pip Calculator</a></li>
+      </ul>
+
+      <div class="nav-controls">
+        <select id="globalCurrencySelect" class="currency-select" title="Change Base Display Currency">
+          <option value="USD">USD ($) Global</option>
+          <option value="PKR">PKR (Rs) Pakistan</option>
+          <option value="AED">AED (Dirham) UAE</option>
+          <option value="SAR">SAR (Riyal) Saudi</option>
+          <option value="EUR">EUR (€) Europe</option>
+          <option value="GBP">GBP (£) UK</option>
+          <option value="INR">INR (₹) India</option>
+        </select>
+        <a href="#broker-section" class="btn-cta">⚡ Trade Gold</a>
+      </div>
+    </div>
+  </header>
+
+  <!-- ==================== MONETIZATION: HEADER LEADERBOARD AD ==================== -->
+  <div class="ad-leaderboard">
+    <div class="ad-box">
+      <span class="ad-tag">Sponsored Partner</span>
+      <div class="ad-promo">
+        <span class="ad-badge">0% COMMISSION</span>
+        <div class="ad-text">Trade Gold (XAU/USD) with <strong>Exness &amp; XM Global</strong> - Instant Withdrawals &amp; Raw Spreads</div>
+      </div>
+      <a href="#broker-section" class="btn-ad">Open Live Account →</a>
+    </div>
+  </div>
+
+  <!-- ==================== MAIN CONTAINER ==================== -->
+  <main class="container">
+    
+    <!-- SYNC BAR & LIVE STATUS -->
+    <div style="display: flex; justify-content: space-between; align-items: center; background: rgba(8, 15, 36, 0.7); border: 1px solid var(--border-color); border-radius: 12px; padding: 12px 20px; margin-bottom: 24px;">
+      <div style="display: flex; align-items: center; gap: 12px; font-size: 13px;">
+        <span class="ticker-pulse"></span>
+        <strong style="color: var(--emerald-green);">Auto-Engine Connected:</strong>
+        <span id="syncCountdown" style="color: var(--text-secondary);">Auto-sync in 60s</span>
+        <span style="color: var(--text-muted);">| Last Synced: <span id="lastSyncTime" style="color: var(--text-primary); font-weight: 700;">Just Now</span></span>
+      </div>
+      <button id="manualRefreshBtn" style="background: rgba(255,255,255,0.06); border: 1px solid var(--border-color); color: var(--gold-light); font-size: 12px; font-weight: 700; padding: 6px 14px; border-radius: 6px; cursor: pointer; transition: all 0.2s;">
+        ↻ Refresh Rates
+      </button>
+    </div>
+
+    <!-- HERO METRICS GRID -->
+    <section class="hero-grid">
+      <!-- Card 1: Gold 24K Ounce -->
+      <div class="metric-card">
+        <div class="metric-header">
+          <span class="metric-title">Gold 24K (Ounce)</span>
+          <span class="metric-badge">999.9 PURE</span>
+        </div>
+        <div class="metric-value" id="heroGoldOunce">$2,684.50</div>
+        <div class="metric-sub">
+          <span>Global Benchmark</span>
+          <span class="metric-change up">▲ +0.65% (24h)</span>
+        </div>
+      </div>
+
+      <!-- Card 2: Gold 24K 1 Tola -->
+      <div class="metric-card">
+        <div class="metric-header">
+          <span class="metric-title">Gold 24K (1 Tola)</span>
+          <span class="metric-badge">11.66 GRAMS</span>
+        </div>
+        <div class="metric-value" id="heroGoldTola">Loading...</div>
+        <div class="metric-sub">
+          <span>Standard Local Unit</span>
+          <span class="metric-change up">▲ +0.58%</span>
+        </div>
+      </div>
+
+      <!-- Card 3: Gold 24K 10 Grams -->
+      <div class="metric-card">
+        <div class="metric-header">
+          <span class="metric-title">Gold 24K (10 Grams)</span>
+          <span class="metric-badge">BULLION BAR</span>
+        </div>
+        <div class="metric-value" id="heroGold10Gram">Loading...</div>
+        <div class="metric-sub">
+          <span>Metric Investment</span>
+          <span class="metric-change up">▲ +0.62%</span>
+        </div>
+      </div>
+
+      <!-- Card 4: Silver Ounce -->
+      <div class="metric-card silver">
+        <div class="metric-header">
+          <span class="metric-title">Silver (1 Ounce)</span>
+          <span class="metric-badge green">FINE 999</span>
+        </div>
+        <div class="metric-value" id="heroSilverOunce">$31.40</div>
+        <div class="metric-sub">
+          <span>Industrial &amp; Bullion</span>
+          <span class="metric-change up">▲ +1.20%</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- DASHBOARD 2-COLUMN LAYOUT -->
+    <div class="dashboard-layout">
+      
+      <!-- LEFT COLUMN: TABLES & ADVANCED CALCULATORS -->
+      <div class="main-column">
+        
+        <!-- SECTION 1: GOLD & PRECIOUS METALS TABLE -->
+        <section id="gold-section" class="content-section">
+          <div class="section-title-wrap">
+            <h2 class="section-title">
+              <span class="icon">🏆</span> Live Gold Rates by Karat &amp; Weight
+            </h2>
+            <span style="font-size: 12px; color: var(--emerald-green); font-weight: 700;">● Multi-Source Verified</span>
+          </div>
+
+          <div style="overflow-x: auto;">
+            <table class="rates-table">
+              <thead>
+                <tr>
+                  <th>Karat Type</th>
+                  <th>Purity</th>
+                  <th>1 Gram</th>
+                  <th>10 Grams</th>
+                  <th>1 Tola</th>
+                  <th>1 Ounce</th>
+                </tr>
+              </thead>
+              <tbody id="goldRatesTableBody">
+                <!-- Dynamically generated via app.js -->
+              </tbody>
+            </table>
+          </div>
+        </section>
+
+        <!-- SECTION 2: LIVE FOREX & CURRENCY TABLE -->
+        <section id="forex-section" class="content-section">
+          <div class="section-title-wrap">
+            <h2 class="section-title">
+              <span class="icon">🌐</span> Global Forex &amp; Currency Exchange
+            </h2>
+            <span style="font-size: 12px; color: var(--text-muted);">Real-Time Interbank Feed</span>
+          </div>
+
+          <div style="overflow-x: auto;">
+            <table class="rates-table">
+              <thead>
+                <tr>
+                  <th>Currency</th>
+                  <th>USD Exchange Rate</th>
+                  <th>Local Rate</th>
+                  <th>24h Trend</th>
+                </tr>
+              </thead>
+              <tbody id="forexRatesTableBody">
+                <!-- Dynamically generated via app.js -->
+              </tbody>
+            </table>
+          </div>
+        </section>
+
+        <!-- SECTION 3: GOLD INVESTMENT RETURN & ROI CALCULATOR -->
+        <section id="roi-section" class="content-section">
+          <div class="section-title-wrap">
+            <h2 class="section-title">
+              <span class="icon">📈</span> Gold Investment Profit &amp; ROI Calculator
+            </h2>
+            <span style="font-size: 12px; color: var(--gold-primary); font-weight: 700;">Gain/Loss Tracker</span>
+          </div>
+          <p style="font-size: 13px; color: var(--text-secondary); margin-bottom: 16px;">
+            Calculate your net profit or loss by comparing your historical purchase price with today's live bullion market rates.
+          </p>
+
+          <div class="tool-grid">
+            <div class="input-group">
+              <label>Your Buying Price (per unit)</label>
+              <input type="number" id="roiBuyPrice" class="input-control" value="210000" min="1">
+            </div>
+
+            <div class="input-group">
+              <label>Weight Purchased</label>
+              <input type="number" id="roiWeight" class="input-control" value="2" step="0.1" min="0.1">
+            </div>
+
+            <div class="input-group">
+              <label>Unit of Weight</label>
+              <select id="roiUnit" class="input-control">
+                <option value="tola" selected>Tola (11.66g)</option>
+                <option value="gram">Grams</option>
+                <option value="ten_gram">10 Grams</option>
+                <option value="ounce">Ounce</option>
+              </select>
+            </div>
+
+            <div class="input-group">
+              <label>Purity / Karat</label>
+              <select id="roiKarat" class="input-control">
+                <option value="k24" selected>24K Pure Gold</option>
+                <option value="k22">22K Gold</option>
+                <option value="k21">21K Gold</option>
+                <option value="k18">18K Gold</option>
+              </select>
+            </div>
+          </div>
+
+          <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 14px; margin-top: 14px;">
+            <div class="result-box">
+              <div class="result-label">Initial Investment</div>
+              <div class="result-val" id="roiInitialInvest">$ 0.00</div>
+            </div>
+            <div class="result-box">
+              <div class="result-label">Current Live Worth</div>
+              <div class="result-val" id="roiCurrentWorth">$ 0.00</div>
+            </div>
+            <div class="result-box" style="border-color: var(--emerald-green);">
+              <div class="result-label">Net Gain / Profit</div>
+              <div class="result-val" id="roiProfitLoss">+ $ 0.00</div>
+              <div id="roiPercentage" class="metric-change up" style="margin-top: 4px;">▲ +0.00% ROI</div>
+            </div>
+          </div>
+        </section>
+
+        <!-- SECTION 4: JEWELRY MAKING CHARGES & WASTAGE FAIR PRICE CALCULATOR -->
+        <section id="jewelry-section" class="content-section">
+          <div class="section-title-wrap">
+            <h2 class="section-title">
+              <span class="icon">💍</span> Jewelry Making Charges &amp; Wastage Calculator
+            </h2>
+            <span style="font-size: 12px; color: var(--cyan-accent); font-weight: 700;">Fair Price Verification</span>
+          </div>
+          <p style="font-size: 13px; color: var(--text-secondary); margin-bottom: 16px;">
+            Verify goldsmith calculations, workmanship charges (Mazdoori), and wastage (Katu) so you never overpay when buying jewelry.
+          </p>
+
+          <div class="tool-grid">
+            <div class="input-group">
+              <label>Total Jewelry Weight</label>
+              <input type="number" id="jewelWeight" class="input-control" value="15" step="0.1" min="0.1">
+            </div>
+
+            <div class="input-group">
+              <label>Weight Unit</label>
+              <select id="jewelUnit" class="input-control">
+                <option value="gram" selected>Grams</option>
+                <option value="tola">Tola</option>
+              </select>
+            </div>
+
+            <div class="input-group">
+              <label>Jewelry Karat</label>
+              <select id="jewelKarat" class="input-control">
+                <option value="k22" selected>22K (Standard Jewelry 916)</option>
+                <option value="k21">21K (Gulf Standard 875)</option>
+                <option value="k18">18K (Diamond/Stone Gold 750)</option>
+                <option value="k24">24K (Pure Gold 999)</option>
+              </select>
+            </div>
+
+            <div class="input-group">
+              <label>Making Charges (Per Unit)</label>
+              <input type="number" id="jewelMaking" class="input-control" value="1200" min="0">
+            </div>
+
+            <div class="input-group" style="grid-column: span 2;">
+              <label>Wastage / Katu Percentage (%)</label>
+              <input type="number" id="jewelWastage" class="input-control" value="2.0" step="0.1" min="0">
+            </div>
+          </div>
+
+          <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin-top: 14px;">
+            <div class="result-box">
+              <div class="result-label">Raw Gold Value</div>
+              <div class="result-val" id="jewelPureGoldVal">$ 0.00</div>
+              <div id="jewelTotalMaking" style="font-size: 11px; color: var(--text-muted); margin-top: 4px;">Making + Wastage</div>
+            </div>
+            <div class="result-box" style="border-color: var(--gold-primary);">
+              <div class="result-label">Fair Estimated Payable Total</div>
+              <div class="result-val" id="jewelFairTotal" style="color: var(--gold-light);">$ 0.00</div>
+              <div style="font-size: 11px; color: var(--emerald-green); margin-top: 4px;">✓ Complete Transparent Price</div>
+            </div>
+          </div>
+        </section>
+
+        <!-- SECTION 5: FOREX & GOLD PIP CALCULATOR -->
+        <section id="forex-calc-section" class="content-section">
+          <div class="section-title-wrap">
+            <h2 class="section-title">
+              <span class="icon">📊</span> Forex &amp; Gold Pip / Margin Calculator
+            </h2>
+            <span style="font-size: 12px; color: var(--emerald-green); font-weight: 700;">Professional Trader Tool</span>
+          </div>
+
+          <div class="tool-grid">
+            <div class="input-group">
+              <label>Trading Pair / Asset</label>
+              <select id="pipPair" class="input-control">
+                <option value="XAUUSD" selected>XAU/USD (Gold vs US Dollar)</option>
+                <option value="EURUSD">EUR/USD (Euro vs US Dollar)</option>
+                <option value="GBPUSD">GBP/USD (Pound vs US Dollar)</option>
+              </select>
+            </div>
+
+            <div class="input-group">
+              <label>Trade Lot Size</label>
+              <input type="number" id="pipLots" class="input-control" value="1.0" step="0.01" min="0.01">
+            </div>
+
+            <div class="input-group">
+              <label>Account Leverage</label>
+              <select id="pipLeverage" class="input-control">
+                <option value="100">1:100</option>
+                <option value="200">1:200</option>
+                <option value="500" selected>1:500 (Recommended)</option>
+                <option value="1000">1:1000 (High Leverage)</option>
+              </select>
+            </div>
+
+            <div class="input-group">
+              <label>Target Move (Pips / Points)</label>
+              <input type="number" id="pipTarget" class="input-control" value="50" min="1">
+            </div>
+          </div>
+
+          <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 14px; margin-top: 14px;">
+            <div class="result-box">
+              <div class="result-label">Required Margin</div>
+              <div class="result-val" id="pipReqMargin">$ 0.00</div>
+            </div>
+            <div class="result-box">
+              <div class="result-label">Single Pip Value</div>
+              <div class="result-val" id="pipSingleVal">$ 0.00</div>
+            </div>
+            <div class="result-box" style="border-color: var(--cyan-accent);">
+              <div class="result-label">Expected Profit</div>
+              <div class="result-val" id="pipExpProfit" style="color: var(--cyan-accent);">$ 0.00</div>
+            </div>
+          </div>
+        </section>
+
+        <!-- SECTION 6: INSTANT CURRENCY CONVERTER -->
+        <section id="converter-section" class="content-section">
+          <div class="section-title-wrap">
+            <h2 class="section-title">
+              <span class="icon">🔄</span> Instant Currency Converter
+            </h2>
+          </div>
+
+          <div class="tool-grid">
+            <div class="input-group">
+              <label>Amount to Convert</label>
+              <input type="number" id="convAmount" class="input-control" value="1000" min="1">
+            </div>
+
+            <div class="input-group">
+              <label>From Currency</label>
+              <select id="convFrom" class="input-control">
+                <option value="USD">USD - US Dollar</option>
+                <option value="EUR">EUR - Euro</option>
+                <option value="GBP">GBP - British Pound</option>
+                <option value="AED">AED - UAE Dirham</option>
+                <option value="SAR">SAR - Saudi Riyal</option>
+                <option value="PKR">PKR - Pakistani Rupee</option>
+                <option value="INR">INR - Indian Rupee</option>
+              </select>
+            </div>
+
+            <div class="input-group" style="grid-column: span 2;">
+              <label>To Currency</label>
+              <select id="convTo" class="input-control">
+                <option value="PKR">PKR - Pakistani Rupee</option>
+                <option value="USD">USD - US Dollar</option>
+                <option value="AED">AED - UAE Dirham</option>
+                <option value="SAR">SAR - Saudi Riyal</option>
+                <option value="EUR">EUR - Euro</option>
+                <option value="GBP">GBP - British Pound</option>
+                <option value="INR">INR - Indian Rupee</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="result-box">
+            <div class="result-label">Real-Time Conversion Value</div>
+            <div class="result-val" id="convResult">Calculating...</div>
+          </div>
+        </section>
+
+        <!-- SECTION 7: GOLD VALUE & ZAKAT CALCULATOR -->
+        <section id="zakat-section" class="content-section">
+          <div class="section-title-wrap">
+            <h2 class="section-title">
+              <span class="icon">⚖️</span> Gold Investment &amp; Zakat Calculator
+            </h2>
+            <span style="font-size: 12px; color: var(--gold-primary); font-weight: 700;">2.5% Shariah Standard</span>
+          </div>
+
+          <div class="tool-grid">
+            <div class="input-group">
+              <label>Weight of Gold Owned</label>
+              <input type="number" id="zakatWeight" class="input-control" value="7.5" step="0.1" min="0">
+            </div>
+
+            <div class="input-group">
+              <label>Unit of Weight</label>
+              <select id="zakatUnit" class="input-control">
+                <option value="tola" selected>Tola (11.66g)</option>
+                <option value="gram">Grams</option>
+                <option value="ten_gram">10 Grams</option>
+                <option value="ounce">Troy Ounces</option>
+              </select>
+            </div>
+
+            <div class="input-group" style="grid-column: span 2;">
+              <label>Gold Purity / Karat</label>
+              <select id="zakatKarat" class="input-control">
+                <option value="k24" selected>24K (Pure Gold 999.9)</option>
+                <option value="k22">22K (Jewelry Standard 916)</option>
+                <option value="k21">21K (Middle East Standard 875)</option>
+                <option value="k18">18K (Commercial 750)</option>
+              </select>
+            </div>
+          </div>
+
+          <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 16px;">
+            <div class="result-box">
+              <div class="result-label">Total Gold Value</div>
+              <div class="result-val" id="zakatTotalValue">Loading...</div>
+            </div>
+            <div class="result-box" style="border-color: var(--emerald-green);">
+              <div class="result-label">Zakat Payable (2.5%)</div>
+              <div class="result-val" id="zakatPayable" style="color: var(--emerald-green);">Loading...</div>
+            </div>
+          </div>
+        </section>
+
+      </div>
+
+      <!-- RIGHT COLUMN: SIDEBAR, AFFILIATES & ADS -->
+      <aside class="sidebar-column">
+        
+        <!-- WIDGET 0: GLOBAL BULLION MARKET SESSIONS -->
+        <div class="sidebar-widget">
+          <h3 class="widget-title">🌍 Global Market Sessions</h3>
+          <p style="font-size: 12px; color: var(--text-muted); margin-bottom: 12px;">
+            Live trading desk status across major international financial hubs.
+          </p>
+          <div id="marketSessionsContainer">
+            <!-- Dynamically populated by app.js -->
+          </div>
+        </div>
+
+        <!-- WIDGET 1: BROKER AFFILIATES (HIGH REVENUE) -->
+        <div id="broker-section" class="sidebar-widget">
+          <h3 class="widget-title">💎 Top Trading Partners</h3>
+          <p style="font-size: 12.5px; color: var(--text-muted); margin-bottom: 14px;">
+            Trade Gold &amp; Currencies with trusted regulated brokers. Zero spread accounts available.
+          </p>
+
+          <!-- Broker 1 -->
+          <div class="broker-card">
+            <div class="broker-header">
+              <span class="broker-name">Exness Global</span>
+              <span class="broker-badge">FEATURED</span>
+            </div>
+            <div class="broker-features">
+              • 0% Overnight Swap on Gold<br>
+              • Instant Auto-Withdrawals<br>
+              • Min Deposit $10
+            </div>
+            <a href="https://www.exness.com" target="_blank" rel="noopener" class="btn-broker">Start Trading Gold →</a>
+          </div>
+
+          <!-- Broker 2 -->
+          <div class="broker-card">
+            <div class="broker-header">
+              <span class="broker-name">XM Financial</span>
+              <span class="broker-badge">POPULAR</span>
+            </div>
+            <div class="broker-features">
+              • $30 Free No-Deposit Bonus<br>
+              • Regulated in UK &amp; Australia<br>
+              • Over 1,000+ Forex Pairs
+            </div>
+            <a href="https://www.xm.com" target="_blank" rel="noopener" class="btn-broker">Claim $30 Trading Bonus →</a>
+          </div>
+        </div>
+
+        <!-- WIDGET 2: ADSENSE RECTANGLE (MONETIZATION) -->
+        <div class="sidebar-widget" style="text-align: center;">
+          <div style="font-size: 10px; color: var(--text-muted); text-transform: uppercase; margin-bottom: 8px;">Advertisement (300x250)</div>
+          <div style="background: rgba(3, 7, 18, 0.8); border: 1px dashed rgba(255,255,255,0.1); height: 250px; border-radius: var(--radius-sm); display: flex; flex-direction: column; justify-content: center; align-items: center; padding: 20px;">
+            <span style="font-size: 28px; margin-bottom: 8px;">📈</span>
+            <strong style="color: var(--gold-light); font-size: 14px;">Google AdSense Slot</strong>
+            <p style="font-size: 11.5px; color: var(--text-muted); margin-top: 4px;">High-CPC Financial &amp; Crypto Ad Unit</p>
+          </div>
+        </div>
+
+        <!-- WIDGET 3: VIP NEWSLETTER / RATE ALERTS (LEAD CAPTURE) -->
+        <div class="sidebar-widget">
+          <h3 class="widget-title">📬 Free Daily Rate Alerts</h3>
+          <p style="font-size: 12.5px; color: var(--text-secondary); margin-bottom: 14px;">
+            Get morning Gold &amp; Forex closing prices delivered to your inbox every day.
+          </p>
+          <form id="newsletterForm" class="newsletter-form">
+            <input type="text" class="input-control" placeholder="Your Name" required>
+            <input type="email" class="input-control" placeholder="Your Email Address" required>
+            <button type="submit" class="btn-submit">Subscribe to Free Alerts</button>
+          </form>
+        </div>
+
+      </aside>
+
+    </div>
+
+  </main>
+
+  <!-- ==================== FOOTER ==================== -->
+  <footer>
+    <div class="footer-content">
+      <div class="footer-brand">
+        <img src="logo.svg" alt="BullionRates Global" style="height: 42px;">
+        <p>The premier automated destination for gold bullion, precious metals, and foreign exchange intelligence.</p>
+      </div>
+
+      <div style="font-size: 13px; color: var(--text-muted);">
+        <p>⚡ Powered by BullionRates Global Multi-Source Automated Engine</p>
+        <p>Rates auto-refreshed 24/7 with dual failover liquidity feeds.</p>
+      </div>
+    </div>
+
+    <div class="footer-copyright" style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 14px;">
+      <div>&copy; 2026 BullionRates Global. All Rights Reserved. Not financial advice. For informational &amp; tracking purposes only.</div>
+      <div style="display: flex; gap: 18px;">
+        <a href="about.html" style="color: var(--text-secondary); text-decoration: none; font-size: 13px;">About &amp; Contact</a>
+        <a href="privacy.html" style="color: var(--text-secondary); text-decoration: none; font-size: 13px;">Privacy Policy</a>
+        <a href="disclaimer.html" style="color: var(--text-secondary); text-decoration: none; font-size: 13px;">Financial Disclaimer</a>
+      </div>
+    </div>
+  </footer>
+
+  <script src="app.js"></script>
+</body>
+</html>

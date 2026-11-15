@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>About Us & Contact - BullionRates Global</title>
+  <link rel="icon" type="image/svg+xml" href="logo.svg">
+  <link rel="stylesheet" href="style.css">
+  <style>
+    .about-container {
+      max-width: 1000px;
+      margin: 40px auto;
+      background: var(--bg-card);
+      border: 1px solid var(--border-color);
+      border-radius: var(--radius-lg);
+      padding: 40px;
+      box-shadow: 0 15px 40px rgba(0,0,0,0.6);
+    }
+    .about-header {
+      text-align: center;
+      margin-bottom: 30px;
+      border-bottom: 1px solid var(--border-color);
+      padding-bottom: 24px;
+    }
+    .about-header h1 {
+      font-size: 36px;
+      color: var(--gold-light);
+      margin-bottom: 10px;
+    }
+    .about-header p {
+      color: var(--text-secondary);
+      font-size: 16px;
+    }
+    .about-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 30px;
+      margin-top: 30px;
+    }
+    @media (max-width: 768px) {
+      .about-grid { grid-template-columns: 1fr; }
+    }
+    .about-box {
+      background: var(--bg-secondary);
+      border: 1px solid var(--border-color);
+      border-radius: var(--radius-md);
+      padding: 24px;
+    }
+    .about-box h2 {
+      font-size: 20px;
+      color: var(--gold-primary);
+      margin-bottom: 12px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .about-box p {
+      color: var(--text-secondary);
+      font-size: 14px;
+      line-height: 1.7;
+    }
+    .contact-form input, .contact-form textarea {
+      width: 100%;
+      background: var(--bg-primary);
+      border: 1px solid var(--border-color);
+      color: var(--text-primary);
+      padding: 12px;
+      border-radius: var(--radius-sm);
+      margin-bottom: 14px;
+      font-family: inherit;
+      outline: none;
+    }
+    .contact-form textarea {
+      height: 110px;
+      resize: vertical;
+    }
+    .contact-form input:focus, .contact-form textarea:focus {
+      border-color: var(--gold-primary);
+    }
+    .back-btn {
+      display: inline-block;
+      margin-bottom: 20px;
+      color: var(--gold-primary);
+      text-decoration: none;
+      font-weight: 700;
+    }
+  </style>
+</head>
+<body>
+  <div class="about-container">
+    <a href="index.html" class="back-btn">← Back to BullionRates Global</a>
+
+    <div class="about-header">
+      <img src="logo.svg" alt="BullionRates Global" style="height: 60px; margin-bottom: 14px;">
+      <h1>About BullionRates Global</h1>
+      <p>Empowering investors, jewelers, and global citizens with real-time precious metals transparency.</p>
+    </div>
+
+    <div class="about-grid">
+      <div class="about-box">
+        <h2>🏆 Our Mission</h2>
+        <p>BullionRates Global was established to bridge the gap between complex interbank precious metals markets and everyday retail investors. We provide instant, automated, and mathematically verified gold and currency valuations.</p>
+        <p style="margin-top: 10px;">Whether calculating the exact Zakat on family gold holdings, verifying local goldsmith making charges, or monitoring global forex shifts, our platform delivers institutional-grade accuracy free to the public.</p>
+      </div>
+
+      <div class="about-box">
+        <h2>⚡ High-Tech Precision</h2>
+        <p>Our dual-redundant multi-source automated engine continuously synchronizes with the European Central Bank, London Bullion Market Association (LBMA) benchmarks, and global interbank feeds.</p>
+        <p style="margin-top: 10px;">By removing manual human error, BullionRates Global guarantees reliable 24/7 rate availability with built-in zero-latency caching.</p>
+      </div>
+    </div>
+
+    <div style="margin-top: 40px; background: var(--bg-secondary); border: 1px solid var(--border-color); border-radius: var(--radius-md); padding: 30px;">
+      <h2 style="color: var(--gold-light); font-size: 22px; margin-bottom: 8px;">📬 Get in Touch / Advertising Partnerships</h2>
+      <p style="color: var(--text-secondary); font-size: 14px; margin-bottom: 20px;">
+        For commercial advertising, broker sponsorships, or technical inquiries, please reach out using the form below.
+      </p>
+
+      <form class="contact-form" onsubmit="event.preventDefault(); alert('Thank you! Your message has been sent to our editorial and partnership desk.'); this.reset();">
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 14px;">
+          <input type="text" placeholder="Your Name" required>
+          <input type="email" placeholder="Your Email Address" required>
+        </div>
+        <input type="text" placeholder="Subject (e.g. Ad Placement / Broker Partnership)" required>
+        <textarea placeholder="Your Message..." required></textarea>
+        <button type="submit" class="btn-cta" style="width: 100%; justify-content: center; padding: 14px;">Send Message</button>
+      </form>
+    </div>
+  </div>
+</body>
+</html>
